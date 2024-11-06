@@ -27,7 +27,7 @@ function App() {
 	return (
 		<>
 			<Toaster richColors position='top-center' />
-			<div className='relative'>
+			<div className='relative aspect-video'>
 				<div className='absolute right-0 left-0 container bg-kaisen bg-contain blur-sm aspect-video mx-auto mt-4'></div>
 				<div className='absolute right-0 left-0 container aspect-video mx-auto mt-4 font-jah text-stroke'>
 					<h1
