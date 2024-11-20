@@ -1,12 +1,11 @@
-import { CSSProperties } from 'react'
-import { Button } from './components/ui/button'
-import { toast, Toaster } from 'sonner'
 import { BarChart, Bar, XAxis, YAxis } from 'recharts'
 import { ChartConfig, ChartContainer } from './components/ui/chart'
+import { Menu } from './components/game/Menu'
+import { Toaster } from '@/components/ui/sonner'
+import { useState } from 'react'
+import { MenuOptions } from './types'
+import { Game } from './components/game/Game'
 
-const strokeStyle = (pixelW: number): CSSProperties => ({
-	WebkitTextStroke: `${pixelW}px var(--yellowKaisen)`,
-})
 const chartConfig = {
 	infinito: {
 		label: 'Infinito',
@@ -23,48 +22,23 @@ const chartData = [
 	{ player: 'player2', infinito: 800, tiempo: 200 },
 	{ player: 'player3', infinito: 900, tiempo: 800 },
 ]
+
 function App() {
+	const [menuItem, setMenuItem] = useState<MenuOptions>('inicio')
 	return (
 		<>
 			<Toaster richColors position='top-center' />
 			<div className='relative aspect-video'>
 				<div className='absolute right-0 left-0 container bg-kaisen bg-contain blur-sm aspect-video mx-auto mt-4'></div>
 				<div className='absolute right-0 left-0 container aspect-video mx-auto mt-4 font-jah text-stroke'>
-					<h1
-						className='text-center text-[200px] z-10 blur-none whitespace-nowrap'
-						style={{ ...strokeStyle(5) }}
-					>
-						Make the Pair Kaisen
-					</h1>
-					<div className='flex flex-col justify-center items-center gap-8 text-3xl'>
-						<Button
-							className='w-[460px] h-[100px] text-[70px] text-black bg-white bg-opacity-50 rounded-lg'
-							style={{ ...strokeStyle(1) }}
-							onClick={() => {
-								toast.info('Proximamente')
-							}}
-						>
-							Infinito
-						</Button>
-						<Button
-							className='w-[460px] h-[100px] text-[70px] text-black bg-white bg-opacity-50 rounded-lg'
-							style={{ ...strokeStyle(1) }}
-							onClick={() => {
-								toast.info('Proximamente')
-							}}
-						>
-							Tiempo
-						</Button>
-						<Button
-							className='w-[460px] h-[100px] text-[70px] text-black bg-white bg-opacity-50 rounded-lg'
-							style={{ ...strokeStyle(1) }}
-							onClick={() => {
-								toast.info('Proximamente')
-							}}
-						>
-							Puntaje
-						</Button>
-					</div>
+					{menuItem === 'inicio' && <Menu setMenuItem={setMenuItem} />}
+					{menuItem === 'infinito' && (
+						<Game mode='infinito' setMode={setMenuItem} />
+					)}
+					{menuItem === 'tiempo' && (
+						<Game mode='tiempo' setMode={setMenuItem} />
+					)}
+					{/* {menuItem === 'puntaje' && null} */}
 				</div>
 			</div>
 			<div className='grid grid-cols-2'>
